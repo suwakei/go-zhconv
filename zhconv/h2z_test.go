@@ -77,7 +77,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Standalone Dakuten/Maru",
 			input:    "ﾞ ﾟ",
-			expected: "ﾞﾟ", // そのまま出力される (テーブルにないので変換されない)
+			expected: "゛゜",
 		},
 		{
 			name:     "Edge case: Dakuten at end",
@@ -92,7 +92,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Edge case: Dakuten/Maru at beginning",
 			input:    "ﾞｶ ﾟﾊ",
-			expected: "ﾞカﾟハ", // 結合されず、それぞれ変換される (ﾞ,ﾟはそのまま、ｶ,ﾊは全角に)
+			expected: "゛カ゜ハ", // 結合されず、それぞれ変換される (ﾞ,ﾟはそのまま、ｶ,ﾊは全角に)
 		},
 		{
 			name:     "ASCII Edge Cases",
