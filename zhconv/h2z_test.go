@@ -62,7 +62,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Mixed Hankaku/Zenkaku/Other",
 			input:    "これはﾃｽﾄです｡123 ABC ｱｲｳ ｶﾞｷﾞｸﾞ ﾊﾟﾋﾟﾌﾟ!",
-			expected: "これはテストです。１２３　ＡＢＣ　アイウ　ガギグ　パピプ！", // スペースも全角に
+			expected: "これはテストです。１２３　ＡＢＣ　アイウ　ガギグ　パピプ！",
 		},
 		{
 			name:     "Hankaku Space",
