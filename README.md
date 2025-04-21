@@ -6,7 +6,7 @@ This repository is a library that supports character conversion in the Go langua
 ## installtion
 
 ```sh
-go get github.com/suwakei/go-zhconv
+go get -u github.com/suwakei/go-zhconv/zhconv
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ package main
 
 import (
     "fmt"
-    "github.com/suwakei/go-zhconv"
+    "github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
@@ -32,7 +32,7 @@ package main
 
 import (
     "fmt"
-    "github.com/suwakei/go-zhconv"
+    "github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
