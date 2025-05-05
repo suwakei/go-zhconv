@@ -72,7 +72,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Dakuten/Handakuten cannot be applied",
 			input:    "ｱﾞｲﾟﾝﾞ", // アに濁点、イに半濁点、ンに濁点は付けられない
-			expected: "アﾞイﾟンﾞ", // 分離されたまま全角に変換される (ｱ->ア, ﾞ->ﾞ)
+			expected: "ア゛イ゜ン゛", // 分離されたまま全角に変換される (ｱ->ア, ﾞ->ﾞ)
 		},
 		{
 			name:     "Standalone Dakuten/Maru",
