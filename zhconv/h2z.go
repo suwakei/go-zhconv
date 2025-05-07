@@ -18,6 +18,7 @@ func H2z(str string) string {
 
 	t := tables.New()      // Get conversion tables
 	runes := []rune(str) // Convert string to rune slice for correct multi-byte character handling
+
 	i := 0
 	runeLen := len(runes)
 
@@ -25,10 +26,9 @@ func H2z(str string) string {
 		char := runes[i]
 
 		// Check for potential dakuten (ﾞ) or handakuten (ﾟ) combination
-		// Check if the next character exists and is a dakuten or handakuten
+		// Check if the next character existence and dakuten or handakuten
 		if i+1 < runeLen {
 			nextChar := runes[i+1]
-			// Check for dakuten
 			if nextChar == 'ﾞ' {
 				// Check if the current character is a hankaku kana that can take a dakuten
 				if zenkakuDakuten, ok := t.KANA_HANKAKU_DAKUTEN_MAP[char]; ok {
@@ -36,7 +36,7 @@ func H2z(str string) string {
 					i += 2 // Skip both the current character and the dakuten
 					continue // Continue to the next iteration
 				}
-			} else if nextChar == 'ﾟ' { // Check for handakuten
+			} else if nextChar == 'ﾟ' {
 				// Check if the current character is a hankaku kana that can take a handakuten
 				if zenkakuHandakuten, ok := t.KANA_HANKAKU_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)

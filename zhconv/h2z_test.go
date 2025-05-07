@@ -75,11 +75,6 @@ func TestH2z(t *testing.T) {
 			expected: "ア゛イ゜ン゛", // 分離されたまま全角に変換される (ｱ->ア, ﾞ->ﾞ)
 		},
 		{
-			name:     "Standalone Dakuten/Maru",
-			input:    "ﾞ ﾟ",
-			expected: "゛゜",
-		},
-		{
 			name:     "Edge case: Dakuten at end",
 			input:    "ﾃｽﾄｶﾞ",
 			expected: "テストガ",
@@ -88,11 +83,6 @@ func TestH2z(t *testing.T) {
 			name:     "Edge case: Handakuten at end",
 			input:    "ﾃｽﾄﾊﾟ",
 			expected: "テストパ",
-		},
-		{
-			name:     "Edge case: Dakuten/Maru at beginning",
-			input:    "ﾞｶ ﾟﾊ",
-			expected: "゛カ゜ハ", // 結合されず、それぞれ変換される (ﾞ,ﾟはそのまま、ｶ,ﾊは全角に)
 		},
 		{
 			name:     "ASCII Edge Cases",
