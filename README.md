@@ -36,6 +36,9 @@ func main() {
     result = zhconv.Z2h("アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン")
     fmt.Println(result) // ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ
 
+	result = zhconv.Z2h("ァィゥェォッャュョ")
+    fmt.Println(result) // ｧｨｩｪｫｯｬｭｮ ヮ is not converted because there is no corresponding character for half-width.
+
     result = zhconv.Z2h("。、・ー「」")
     fmt.Println(result) // ｡､･ｰ｢｣
 
@@ -81,9 +84,6 @@ func main() {
 
 	result = zhconv.H2z("ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ") // Hankaku Katakana to Zenkaku.
 	fmt.Println(result) // アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン.
-
-    result = zhconv.Z2h("ァィゥェォッャュョ")
-    fmt.Println(result) // ｧｨｩｪｫｯｬｭｮ ヮ is not converted because there is no corresponding character for half-width.
 
 	result = zhconv.H2z("ｧｨｩｪｫｯｬｭｮ") // Hankaku Katakana (Small) to Zenkaku.
 	fmt.Println(result) // ァィゥェォッャュョ.
