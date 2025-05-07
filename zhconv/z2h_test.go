@@ -42,7 +42,7 @@ func TestZ2h(t *testing.T) {
 		},
 		{
 			name:     "Zenkaku Katakana (Small) to Hankaku",
-			input:    "ァィゥェォッャュョ", // ヮ は半角に対応する文字がないため変換されない
+			input:    "ァィゥェォッャュョ", // 	ヮ is not converted because there is no corresponding character for half-width
 			expected: "ｧｨｩｪｫｯｬｭｮ",
 		},
 		{
@@ -53,7 +53,7 @@ func TestZ2h(t *testing.T) {
 		{
 			name:     "Zenkaku Katakana (Dakuten) to Hankaku",
 			input:    "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ",
-			expected: "ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ", // ヴ は ウﾞ になる
+			expected: "ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ",
 		},
 		{
 			name:     "Zenkaku Katakana (Handakuten) to Hankaku",
@@ -67,8 +67,8 @@ func TestZ2h(t *testing.T) {
 		},
 		{
 			name:     "Zenkaku Space",
-			input:    "　スペース　", // 全角スペース
-			expected: " ｽﾍﾟｰｽ ",   // 半角スペース
+			input:    "　スペース　", //  Full Width
+			expected: " ｽﾍﾟｰｽ ",   // Half Width
 		},
 		{
 			name:     "ASCII Edge Cases",

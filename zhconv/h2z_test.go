@@ -35,7 +35,7 @@ func TestH2z(t *testing.T) {
 			expected: "０１２３４５６７８９",
 		},
 		{
-			name:     "Hankaku Katakana (Seion) to Zenkaku",
+			name:     "Hankaku Katakana to Zenkaku",
 			input:    "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ",
 			expected: "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン",
 		},
@@ -51,7 +51,7 @@ func TestH2z(t *testing.T) {
 		},
 		{
 			name:     "Hankaku Katakana with Dakuten to Zenkaku",
-			input:    "ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ", // ｳﾞ -> ヴ
+			input:    "ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ",
 			expected: "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ",
 		},
 		{
