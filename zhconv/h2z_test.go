@@ -8,7 +8,8 @@ func TestH2z(t *testing.T) {
 	testCases := []struct {
 		name     string // testcase name
 		input    string
-		expected string}{
+		expected string
+	}{
 		{
 			name:     "Empty string",
 			input:    "",
@@ -67,7 +68,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Hankaku Space",
 			input:    " ｽﾍﾟｰｽ ", // 半角スペース
-			expected: "　スペース　",   // 全角スペース
+			expected: "　スペース　",  // 全角スペース
 		},
 		{
 			name:     "Dakuten/Handakuten cannot be applied",
@@ -105,7 +106,6 @@ func TestH2z(t *testing.T) {
 			expected: "１バイト文字と２バイト文字が混在するテキスト。　ＡＢＣ　１２３　ガギグパピプ！？",
 		},
 	}
-
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {

@@ -67,8 +67,8 @@ func TestZ2h(t *testing.T) {
 		},
 		{
 			name:     "Zenkaku Space",
-			input:    "　スペース　", //  Full Width
-			expected: " ｽﾍﾟｰｽ ",   // Half Width
+			input:    "　スペース　",  //  Full Width
+			expected: " ｽﾍﾟｰｽ ", // Half Width
 		},
 		{
 			name:     "ASCII Edge Cases",
@@ -86,7 +86,6 @@ func TestZ2h(t *testing.T) {
 			expected: "①②③㈱㈲",
 		},
 	}
-
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {

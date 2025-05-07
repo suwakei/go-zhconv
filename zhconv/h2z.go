@@ -14,9 +14,9 @@ func H2z(str string) string {
 		return ""
 	}
 	var result strings.Builder
-	result.Grow(len(str)*3) // "*3" is for corresponding to multi bytes capacity
+	result.Grow(len(str) * 3) // "*3" is for corresponding to multi bytes capacity
 
-	t := tables.New()      // Get conversion tables
+	t := tables.New()    // Get conversion tables
 	runes := []rune(str) // Convert string to rune slice for correct multi-byte character handling
 
 	i := 0
@@ -33,14 +33,14 @@ func H2z(str string) string {
 				// Check if the current character is a hankaku kana that can take a dakuten
 				if zenkakuDakuten, ok := t.KANA_HANKAKU_DAKUTEN_MAP[char]; ok {
 					result.WriteRune(zenkakuDakuten)
-					i += 2 // Skip both the current character and the dakuten
+					i += 2   // Skip both the current character and the dakuten
 					continue // Continue to the next iteration
 				}
 			} else if nextChar == 'ﾟ' {
 				// Check if the current character is a hankaku kana that can take a handakuten
 				if zenkakuHandakuten, ok := t.KANA_HANKAKU_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)
-					i += 2 // Skip both the current character and the handakuten
+					i += 2   // Skip both the current character and the handakuten
 					continue // Continue to the next iteration
 				}
 			}

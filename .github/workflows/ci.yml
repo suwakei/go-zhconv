@@ -1,0 +1,23 @@
+name: ci
+
+on:
+  push:
+    paths:
+      - "."
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/xheckout@v4
+
+      - name: Go SetUp
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.23
+
+      - name: build
+        run: go build ./...
