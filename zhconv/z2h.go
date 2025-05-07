@@ -15,7 +15,7 @@ func Z2h(str string) string {
 	var result strings.Builder
 	result.Grow(len(str))
 
-	t := tables.New() // Get conversion tables
+	t := tables.New()
 
 	for _, char := range str {
 		if idx := indexRune(t.ASCII_ZENKAKU_CHARS, char); idx != -1 {

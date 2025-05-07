@@ -16,8 +16,8 @@ func H2z(str string) string {
 	var result strings.Builder
 	result.Grow(len(str) * 3) // "*3" is for corresponding to multi bytes capacity
 
-	t := tables.New()    // Get conversion tables
-	runes := []rune(str) // Convert string to rune slice for correct multi-byte character handling
+	t := tables.New()
+	runes := []rune(str)
 
 	i := 0
 	runeLen := len(runes)
