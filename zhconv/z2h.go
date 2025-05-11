@@ -40,7 +40,7 @@ func Z2h(str string) string {
 				result.WriteRune('ﾟ') // Write hankaku handakuten 'ﾟ'
 			} else {
 				// Base kana not found in KANA_Z2H_CHARS_MAP Should not happen if tables are consistent.
-				result.WriteRune(char) // Fallback: write original character
+				result.WriteRune(char) // write original character
 			}
 			// Check for standard Katakana (without dakuten/handakuten)
 		} else if c, ok := convTables.KANA_Z2H_CHARS_MAP[char]; ok {
