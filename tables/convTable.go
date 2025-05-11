@@ -1,54 +1,90 @@
 package tables
 
 type ConversionTables struct {
-	// ASCII_ZENKAKU_CHARS は全角ASCII文字の配列です。
-	ASCII_ZENKAKU_CHARS []rune
-	// ASCII_HANKAKU_CHARS は半角ASCII文字の配列です。
-	ASCII_HANKAKU_CHARS []rune
-	// KANA_ZENKAKU_CHARS は全角カナ文字の配列です
-	KANA_ZENKAKU_CHARS []rune
-	// KANA_HANKAKU_CHARS は半角カナ文字の配列です。
-	KANA_HANKAKU_CHARS []rune
-	// DIGIT_ZENKAKU_CHARS は全角数字の配列です
-	DIGIT_ZENKAKU_CHARS []rune
-	// DIGIT_HANKAKU_CHARS は半角数字の配列です。
-	DIGIT_HANKAKU_CHARS []rune
-	// KANA_TEN_MAP は全角カナの濁点マッピングです。
-	KANA_ZENKAKU_DAKUTEN_MAP map[rune]rune
-	// KANA_MARU_MAP は全角カナの丸点マッピングです。
-	KANA_ZENKAKU_MARU_MAP map[rune]rune
-	// KANA_HANKAKU_DAKUTEN_MAP は半角カナの濁点マッピングです。
-	KANA_HANKAKU_DAKUTEN_MAP map[rune]rune
-	// KANA_HANKAKU_MARU_MAP は半角カナの丸点マッピングです。
-	KANA_HANKAKU_MARU_MAP map[rune]rune
+	// ASCII_Z2H_CHARS is a Full Width ASCII characters map.
+	ASCII_Z2H_CHARS_MAP map[rune]rune
+	// ASCII_H2Z_CHARS is a Half Width ASCII characters map.
+	ASCII_H2Z_CHARS_MAP map[rune]rune
+	// KANA_Z2H_CHARS is a Full Width KANA characters map.
+	KANA_Z2H_CHARS_MAP map[rune]rune
+	// KANA_H2Z_CHARS is a Half Width KANA characters map.
+	KANA_H2Z_CHARS_MAP map[rune]rune
+	// DIGIT_Z2H_CHARS is a Full Width number characters map.
+	DIGIT_Z2H_CHARS_MAP map[rune]rune
+	// DIGIT_H2Z_CHARS is a Half Width number characters map.
+	DIGIT_H2Z_CHARS_MAP map[rune]rune
+	// KANA_TEN_MAP is a Full Width DAKUTEN_KANA characters map.
+	KANA_Z2H_DAKUTEN_MAP map[rune]rune
+	// KANA_MARU_MAP is a Full Width HANDAKUTEN_KANA characters map.
+	KANA_Z2H_MARU_MAP map[rune]rune
+	// KANA_H2Z_DAKUTEN_MAP is a Half Width DAKUTEN_KANA characters map.
+	KANA_H2Z_DAKUTEN_MAP map[rune]rune
+	// KANA_H2Z_MARU_MAP is a Half Width HANDAKUTEN_KANA characters map.
+	KANA_H2Z_MARU_MAP map[rune]rune
 }
 
 var (
-	ASCII_ZENKAKU_CHARS = []rune{
-		'ａ', 'ｂ', 'ｃ', 'ｄ', 'ｅ', 'ｆ', 'ｇ', 'ｈ', 'ｉ', 'ｊ', 'ｋ', 'ｌ', 'ｍ', 'ｎ', 'ｏ', 'ｐ', 'ｑ', 'ｒ', 'ｓ', 'ｔ', 'ｕ', 'ｖ', 'ｗ', 'ｘ', 'ｙ', 'ｚ',
-		'Ａ', 'Ｂ', 'Ｃ', 'Ｄ', 'Ｅ', 'Ｆ', 'Ｇ', 'Ｈ', 'Ｉ', 'Ｊ', 'Ｋ', 'Ｌ', 'Ｍ', 'Ｎ', 'Ｏ', 'Ｐ', 'Ｑ', 'Ｒ', 'Ｓ', 'Ｔ', 'Ｕ', 'Ｖ', 'Ｗ', 'Ｘ', 'Ｙ', 'Ｚ',
-		'！', '”', '＃', '＄', '％', '＆', '’', '（', '）', '＊', '＋', '，', '－', '．', '／', '：', '；', '＜', '＝', '＞', '？', '＠', '［', '￥', '］', '＾', '＿', '‘', '｛', '｜', '｝', '～', '　', '＼',
+	ASCII_H2Z_CHARS_MAP = map[rune]rune{
+		'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ', 'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ', 'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ',
+		'A': 'Ａ', 'B': 'Ｂ', 'C': 'Ｃ', 'D': 'Ｄ', 'E': 'Ｅ', 'F': 'Ｆ', 'G': 'Ｇ', 'H': 'Ｈ', 'I': 'Ｉ', 'J': 'Ｊ', 'K': 'Ｋ', 'L': 'Ｌ', 'M': 'Ｍ', 'N': 'Ｎ', 'O': 'Ｏ', 'P': 'Ｐ', 'Q': 'Ｑ', 'R': 'Ｒ', 'S': 'Ｓ', 'T': 'Ｔ', 'U': 'Ｕ', 'V': 'Ｖ', 'W': 'Ｗ', 'X': 'Ｘ', 'Y': 'Ｙ', 'Z': 'Ｚ',
+		'!': '！', '"': '”', '#': '＃', '$': '＄', '%': '％', '&': '＆', '\'': '’', '(': '（', ')': '）', '*': '＊', '+': '＋', ',': '，', '-': '－', '.': '．', '/': '／', ':': '：', ';': '；', '<': '＜', '=': '＝', '>': '＞', '?': '？', '@': '＠', '[': '［', '¥': '￥', ']': '］', '^': '＾',
+		'_': '＿', '`': '‘', '{': '｛', '|': '｜', '}': '｝', '~': '～', ' ': '　', '\\': '＼',
 	}
 
-	ASCII_HANKAKU_CHARS = []rune{
-		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
-		'!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '¥', ']', '^', '_', '`', '{', '|', '}', '~', ' ', '\\',
+	ASCII_Z2H_CHARS_MAP = map[rune]rune{
+		'ａ': 'a', 'ｂ': 'b', 'ｃ': 'c', 'ｄ': 'd', 'ｅ': 'e', 'ｆ': 'f', 'ｇ': 'g', 'ｈ': 'h', 'ｉ': 'i', 'ｊ': 'j', 'ｋ': 'k', 'ｌ': 'l', 'ｍ': 'm', 'ｎ': 'n', 'ｏ': 'o', 'ｐ': 'p', 'ｑ': 'q', 'ｒ': 'r', 'ｓ': 's', 'ｔ': 't', 'ｕ': 'u', 'ｖ': 'v', 'ｗ': 'w', 'ｘ': 'x', 'ｙ': 'y', 'ｚ': 'z',
+		'Ａ': 'A', 'Ｂ': 'B', 'Ｃ': 'C', 'Ｄ': 'D', 'Ｅ': 'E', 'Ｆ': 'F', 'Ｇ': 'G', 'Ｈ': 'H', 'Ｉ': 'I', 'Ｊ': 'J', 'Ｋ': 'K', 'Ｌ': 'L', 'Ｍ': 'M', 'Ｎ': 'N', 'Ｏ': 'O', 'Ｐ': 'P', 'Ｑ': 'Q', 'Ｒ': 'R', 'Ｓ': 'S', 'Ｔ': 'T', 'Ｕ': 'U', 'Ｖ': 'V', 'Ｗ': 'W', 'Ｘ': 'X', 'Ｙ': 'Y', 'Ｚ': 'Z',
+		'！': '!', '”': '"', '＃': '#', '＄': '$', '％': '%', '＆': '&', '’': '\'', '（': '(', '）': ')', '＊': '*', '＋': '+', '，': ',', '－': '-', '．': '.', '／': '/', '：': ':', '；': ';', '＜': '<', '＝': '=', '＞': '>', '？': '?', '＠': '@', '［': '[', '￥': '¥', '］': ']', '＾': '^',
+		'＿': '_', '‘': '`', '｛': '{', '｜': '|', '｝': '}', '～': '~', '　': ' ', '＼': '\\',
 	}
 
-	KANA_ZENKAKU_CHARS = []rune{
-		'ア', 'イ', 'ウ', 'エ', 'オ', 'カ', 'キ', 'ク', 'ケ', 'コ', 'サ', 'シ', 'ス', 'セ', 'ソ', 'タ', 'チ', 'ツ', 'テ', 'ト', 'ナ', 'ニ', 'ヌ', 'ネ', 'ノ', 'ハ', 'ヒ', 'フ', 'ヘ', 'ホ', 'マ', 'ミ', 'ム', 'メ', 'モ', 'ヤ', 'ユ', 'ヨ', 'ラ', 'リ', 'ル', 'レ', 'ロ', 'ワ', 'ヲ', 'ン', 'ァ', 'ィ', 'ゥ', 'ェ', 'ォ', 'ッ', 'ャ', 'ュ', 'ョ', '。', '、', '・', '゛', '゜', '「', '」', 'ー',
+	KANA_H2Z_CHARS_MAP = map[rune]rune{
+		'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+		'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+		'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+		'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+		'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+		'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+		'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+		'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+		'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+		'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+		'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+		'ｯ': 'ッ',
+		'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+		'｡': '。', '､': '、', '･': '・', 'ﾞ': '゛', 'ﾟ': '゜',
+		'｢': '「', '｣': '」', 'ｰ': 'ー',
 	}
 
-	KANA_HANKAKU_CHARS = []rune{
-		'ｱ', 'ｲ', 'ｳ', 'ｴ', 'ｵ', 'ｶ', 'ｷ', 'ｸ', 'ｹ', 'ｺ', 'ｻ', 'ｼ', 'ｽ', 'ｾ', 'ｿ', 'ﾀ', 'ﾁ', 'ﾂ', 'ﾃ', 'ﾄ', 'ﾅ', 'ﾆ', 'ﾇ', 'ﾈ', 'ﾉ', 'ﾊ', 'ﾋ', 'ﾌ', 'ﾍ', 'ﾎ', 'ﾏ', 'ﾐ', 'ﾑ', 'ﾒ', 'ﾓ', 'ﾔ', 'ﾕ', 'ﾖ', 'ﾗ', 'ﾘ', 'ﾙ', 'ﾚ', 'ﾛ', 'ﾜ', 'ｦ', 'ﾝ', 'ｧ', 'ｨ', 'ｩ', 'ｪ', 'ｫ', 'ｯ', 'ｬ', 'ｭ', 'ｮ', '｡', '､', '･', 'ﾞ', 'ﾟ', '｢', '｣', 'ｰ',
+	KANA_Z2H_CHARS_MAP = map[rune]rune{
+		'ア': 'ｱ', 'イ': 'ｲ', 'ウ': 'ｳ', 'エ': 'ｴ', 'オ': 'ｵ',
+		'カ': 'ｶ', 'キ': 'ｷ', 'ク': 'ｸ', 'ケ': 'ｹ', 'コ': 'ｺ',
+		'サ': 'ｻ', 'シ': 'ｼ', 'ス': 'ｽ', 'セ': 'ｾ', 'ソ': 'ｿ',
+		'タ': 'ﾀ', 'チ': 'ﾁ', 'ツ': 'ﾂ', 'テ': 'ﾃ', 'ト': 'ﾄ',
+		'ナ': 'ﾅ', 'ニ': 'ﾆ', 'ヌ': 'ﾇ', 'ネ': 'ﾈ', 'ノ': 'ﾉ',
+		'ハ': 'ﾊ', 'ヒ': 'ﾋ', 'フ': 'ﾌ', 'ヘ': 'ﾍ', 'ホ': 'ﾎ',
+		'マ': 'ﾏ', 'ミ': 'ﾐ', 'ム': 'ﾑ', 'メ': 'ﾒ', 'モ': 'ﾓ',
+		'ヤ': 'ﾔ', 'ユ': 'ﾕ', 'ヨ': 'ﾖ',
+		'ラ': 'ﾗ', 'リ': 'ﾘ', 'ル': 'ﾙ', 'レ': 'ﾚ', 'ロ': 'ﾛ',
+		'ワ': 'ﾜ', 'ヲ': 'ｦ', 'ン': 'ﾝ',
+		'ァ': 'ｧ', 'ィ': 'ｨ', 'ゥ': 'ｩ', 'ェ': 'ｪ', 'ォ': 'ｫ',
+		'ッ': 'ｯ',
+		'ャ': 'ｬ', 'ュ': 'ｭ', 'ョ': 'ｮ',
+		'。': '｡', '、': '､', '・': '･', '゛': 'ﾞ', '゜': 'ﾟ',
+		'「': '｢', '」': '｣', 'ー': 'ｰ',
 	}
 
-	DIGIT_ZENKAKU_CHARS = []rune{'０', '１', '２', '３', '４', '５', '６', '７', '８', '９'}
+	DIGIT_H2Z_CHARS_MAP = map[rune]rune{
+		'0': '０', '1': '１', '2': '２', '3': '３', '4': '４',
+		'5': '５', '6': '６', '7': '７', '8': '８', '9': '９',
+	}
 
-	DIGIT_HANKAKU_CHARS = []rune{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+	DIGIT_Z2H_CHARS_MAP = map[rune]rune{
+		'０': '0', '１': '1', '２': '2', '３': '3', '４': '4',
+		'５': '5', '６': '6', '７': '7', '８': '8', '９': '9',
+	}
 
-	KANA_HANKAKU_DAKUTEN_MAP = map[rune]rune{
+	KANA_H2Z_DAKUTEN_MAP = map[rune]rune{
 		'ｶ': 'ガ', 'ｷ': 'ギ', 'ｸ': 'グ', 'ｹ': 'ゲ', 'ｺ': 'ゴ',
 		'ｻ': 'ザ', 'ｼ': 'ジ', 'ｽ': 'ズ', 'ｾ': 'ゼ', 'ｿ': 'ゾ',
 		'ﾀ': 'ダ', 'ﾁ': 'ヂ', 'ﾂ': 'ヅ', 'ﾃ': 'デ', 'ﾄ': 'ド',
@@ -56,33 +92,34 @@ var (
 		'ｳ': 'ヴ', 'ﾞ': 'ﾞ', 'ﾟ': 'ﾟ',
 	}
 
-	KANA_HANKAKU_MARU_MAP = map[rune]rune{
+	KANA_H2Z_MARU_MAP = map[rune]rune{
 		'ﾊ': 'パ', 'ﾋ': 'ピ', 'ﾌ': 'プ', 'ﾍ': 'ペ', 'ﾎ': 'ポ',
 	}
 
-	KANA_ZENKAKU_DAKUTEN_MAP = map[rune]rune{
+	KANA_Z2H_DAKUTEN_MAP = map[rune]rune{
 		'ガ': 'カ', 'ギ': 'キ', 'グ': 'ク', 'ゲ': 'ケ', 'ゴ': 'コ',
 		'ザ': 'サ', 'ジ': 'シ', 'ズ': 'ス', 'ゼ': 'セ', 'ゾ': 'ソ',
 		'ダ': 'タ', 'ヂ': 'チ', 'ヅ': 'ツ', 'デ': 'テ', 'ド': 'ト',
 		'バ': 'ハ', 'ビ': 'ヒ', 'ブ': 'フ', 'ベ': 'ヘ', 'ボ': 'ホ',
-		'ヴ': 'ウ', // ヴ -> ウ -> ｳ
+		'ヴ': 'ウ',
 	}
-	KANA_ZENKAKU_MARU_MAP = map[rune]rune{
+
+	KANA_Z2H_MARU_MAP = map[rune]rune{
 		'パ': 'ハ', 'ピ': 'ヒ', 'プ': 'フ', 'ペ': 'ヘ', 'ポ': 'ホ',
 	}
 )
 
 func New() *ConversionTables {
 	return &ConversionTables{
-		ASCII_ZENKAKU_CHARS:      ASCII_ZENKAKU_CHARS,
-		ASCII_HANKAKU_CHARS:      ASCII_HANKAKU_CHARS,
-		KANA_ZENKAKU_CHARS:       KANA_ZENKAKU_CHARS,
-		KANA_HANKAKU_CHARS:       KANA_HANKAKU_CHARS,
-		DIGIT_ZENKAKU_CHARS:      DIGIT_ZENKAKU_CHARS,
-		DIGIT_HANKAKU_CHARS:      DIGIT_HANKAKU_CHARS,
-		KANA_ZENKAKU_DAKUTEN_MAP: KANA_ZENKAKU_DAKUTEN_MAP,
-		KANA_ZENKAKU_MARU_MAP:    KANA_ZENKAKU_MARU_MAP,
-		KANA_HANKAKU_DAKUTEN_MAP: KANA_HANKAKU_DAKUTEN_MAP,
-		KANA_HANKAKU_MARU_MAP:    KANA_HANKAKU_MARU_MAP,
+		ASCII_Z2H_CHARS_MAP:  ASCII_Z2H_CHARS_MAP,
+		ASCII_H2Z_CHARS_MAP:  ASCII_H2Z_CHARS_MAP,
+		KANA_Z2H_CHARS_MAP:   KANA_Z2H_CHARS_MAP,
+		KANA_H2Z_CHARS_MAP:   KANA_H2Z_CHARS_MAP,
+		DIGIT_Z2H_CHARS_MAP:  DIGIT_Z2H_CHARS_MAP,
+		DIGIT_H2Z_CHARS_MAP:  DIGIT_H2Z_CHARS_MAP,
+		KANA_Z2H_DAKUTEN_MAP: KANA_Z2H_DAKUTEN_MAP,
+		KANA_Z2H_MARU_MAP:    KANA_Z2H_MARU_MAP,
+		KANA_H2Z_DAKUTEN_MAP: KANA_H2Z_DAKUTEN_MAP,
+		KANA_H2Z_MARU_MAP:    KANA_H2Z_MARU_MAP,
 	}
 }

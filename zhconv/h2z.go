@@ -8,7 +8,6 @@ import (
 
 // H2z converts half-width characters (hankaku) in a string to full-width characters (zenkaku).
 // It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
-// Assumes tables.KANA_HANKAKU_DAKUTEN_MAP and tables.KANA_HANKAKU_HANDAKUTEN_MAP are defined.
 func H2z(str string) string {
 	if str == "" {
 		return ""
@@ -17,6 +16,7 @@ func H2z(str string) string {
 	result.Grow(len(str) * 3) // "*3" is for corresponding to multi bytes capacity
 
 	t := tables.New()
+
 	runes := []rune(str)
 
 	i := 0
@@ -25,20 +25,18 @@ func H2z(str string) string {
 	for i < runeLen {
 		char := runes[i]
 
-		// Check for potential dakuten (ﾞ) or handakuten (ﾟ) combination
-		// Check if the next character existence and dakuten or handakuten
 		if i+1 < runeLen {
 			nextChar := runes[i+1]
+
 			if nextChar == 'ﾞ' {
-				// Check if the current character is a hankaku kana that can take a dakuten
-				if zenkakuDakuten, ok := t.KANA_HANKAKU_DAKUTEN_MAP[char]; ok {
+				if zenkakuDakuten, ok := t.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					result.WriteRune(zenkakuDakuten)
 					i += 2   // Skip both the current character and the dakuten
 					continue // Continue to the next iteration
 				}
 			} else if nextChar == 'ﾟ' {
-				// Check if the current character is a hankaku kana that can take a handakuten
-				if zenkakuHandakuten, ok := t.KANA_HANKAKU_MARU_MAP[char]; ok {
+
+				if zenkakuHandakuten, ok := t.KANA_H2Z_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)
 					i += 2   // Skip both the current character and the handakuten
 					continue // Continue to the next iteration
@@ -47,15 +45,14 @@ func H2z(str string) string {
 		}
 
 		// If it's not a combined dakuten/handakuten case, perform standard conversions
-		if idx := indexRune(t.ASCII_HANKAKU_CHARS, char); idx != -1 {
-			result.WriteRune(t.ASCII_ZENKAKU_CHARS[idx])
-		} else if idx := indexRune(t.KANA_HANKAKU_CHARS, char); idx != -1 {
-			// This handles hankaku kana that are *not* followed by a dakuten/handakuten
-			result.WriteRune(t.KANA_ZENKAKU_CHARS[idx])
-		} else if idx := indexRune(t.DIGIT_HANKAKU_CHARS, char); idx != -1 {
-			result.WriteRune(t.DIGIT_ZENKAKU_CHARS[idx])
+		if c, ok := t.ASCII_H2Z_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
+		} else if c, ok := t.KANA_H2Z_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
+		} else if c, ok := t.DIGIT_H2Z_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
 		} else {
-			// Character is not convertible or is a standalone dakuten/handakuten, etc.
+			// Character is not convertible or a standalone dakuten/handakuten, etc.
 			result.WriteRune(char)
 		}
 
@@ -63,3 +60,18 @@ func H2z(str string) string {
 	}
 	return result.String() // Return the built string
 }
+
+// H2zAt returns string that converted from half width to full width.
+// Conversion string can be selected with the second argument.
+// func H2zAt(str string, at ...int) string {
+// 	if str == "" {
+// 		return ""
+// 	}
+
+// 	if len(at) == 0 {
+// 		return H2z(str)
+// 	}
+
+// 	var result strings.Builder
+// 	result.Grow(len(str) * 3) //
+// }

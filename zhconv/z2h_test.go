@@ -4,6 +4,13 @@ import (
 	"testing"
 )
 
+func BenchmarkZ2h(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		Z2h("ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ０１２３４５６７８９")
+	}
+}
+
 func TestZ2h(t *testing.T) {
 	testCases := []struct {
 		name     string // testcase name

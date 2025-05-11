@@ -1,7 +1,7 @@
 package zhconv
 
 import (
-	"strings" // strings パッケージをインポート
+	"strings"
 
 	"github.com/suwakei/go-zhconv/tables"
 )
@@ -18,43 +18,41 @@ func Z2h(str string) string {
 	t := tables.New()
 
 	for _, char := range str {
-		if idx := indexRune(t.ASCII_ZENKAKU_CHARS, char); idx != -1 {
-			result.WriteRune(t.ASCII_HANKAKU_CHARS[idx])
-		} else if idx := indexRune(t.DIGIT_ZENKAKU_CHARS, char); idx != -1 {
-			result.WriteRune(t.DIGIT_HANKAKU_CHARS[idx])
+		if c, ok := t.ASCII_Z2H_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
+		} else if c, ok := t.DIGIT_Z2H_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
 
 			// Check for Katakana with dakuten (e.g., 'ガ')
 			// Assumes KANA_DAKUTEN_MAP maps 'ガ' -> 'カ'
-		} else if baseKana, ok := t.KANA_ZENKAKU_DAKUTEN_MAP[char]; ok {
-			// Convert the base zenkaku kana ('カ') to hankaku kana ('ｶ')
-			if idx := indexRune(t.KANA_ZENKAKU_CHARS, baseKana); idx != -1 {
-				result.WriteRune(t.KANA_HANKAKU_CHARS[idx]) // Write 'ｶ'
-				result.WriteRune('ﾞ')                       // Write hankaku dakuten 'ﾞ'
+		} else if baseKana, ok := t.KANA_Z2H_DAKUTEN_MAP[char]; ok {
+			// Convert the base Z2H kana ('カ') to hankaku kana ('ｶ')
+			if c, ok := t.KANA_Z2H_CHARS_MAP[baseKana]; ok {
+				result.WriteRune(c)   // Write 'ｶ'
+				result.WriteRune('ﾞ') // Write hankaku dakuten 'ﾞ'
 			} else {
-				// Base kana not found in KANA_ZENKAKU_CHARS? Should not happen if tables are consistent.
-				result.WriteRune(char) // Fallback: write original character
+				// Base kana not found in KANA_Z2H_CHARS_MAP Should not happen if tables are consistent.
+				result.WriteRune(char) // write original character
 			}
 
 			// Check for Katakana with handakuten (e.g., 'パ')
 			// Assumes KANA_MARU_MAP maps 'パ' -> 'ハ'
-		} else if baseKana, ok := t.KANA_ZENKAKU_MARU_MAP[char]; ok {
-			// Convert the base zenkaku kana ('ハ') to hankaku kana ('ﾊ')
-			if idx := indexRune(t.KANA_ZENKAKU_CHARS, baseKana); idx != -1 {
-				result.WriteRune(t.KANA_HANKAKU_CHARS[idx]) // Write 'ﾊ'
-				result.WriteRune('ﾟ')                       // Write hankaku handakuten 'ﾟ'
+		} else if baseKana, ok := t.KANA_Z2H_MARU_MAP[char]; ok {
+			// Convert the base Z2H kana ('ハ') to hankaku kana ('ﾊ')
+			if c, ok := t.KANA_Z2H_CHARS_MAP[baseKana]; ok {
+				result.WriteRune(c)   // Write 'ﾊ'
+				result.WriteRune('ﾟ') // Write hankaku handakuten 'ﾟ'
 			} else {
-				// Base kana not found in KANA_ZENKAKU_CHARS? Should not happen if tables are consistent.
+				// Base kana not found in KANA_Z2H_CHARS_MAP Should not happen if tables are consistent.
 				result.WriteRune(char) // Fallback: write original character
 			}
-
 			// Check for standard Katakana (without dakuten/handakuten)
-		} else if idx := indexRune(t.KANA_ZENKAKU_CHARS, char); idx != -1 {
-			result.WriteRune(t.KANA_HANKAKU_CHARS[idx])
-
+		} else if c, ok := t.KANA_Z2H_CHARS_MAP[char]; ok {
+			result.WriteRune(c)
 		} else {
 			// Character is not convertible (e.g., Hiragana, Kanji, symbols not covered)
 			result.WriteRune(char)
 		}
 	}
-	return result.String() // Return the built string
+	return result.String()
 }

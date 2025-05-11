@@ -4,6 +4,13 @@ import (
 	"testing"
 )
 
+func BenchmarkH2z(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		H2z("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+	}
+}
+
 func TestH2z(t *testing.T) {
 	testCases := []struct {
 		name     string // testcase name
