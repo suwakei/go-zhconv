@@ -2,8 +2,6 @@ package zhconv
 
 import (
 	"strings"
-
-	"github.com/suwakei/go-zhconv/tables"
 )
 
 // H2z converts half-width characters (hankaku) in a string to full-width characters (zenkaku).
@@ -14,8 +12,6 @@ func H2z(str string) string {
 	}
 	var result strings.Builder
 	result.Grow(len(str) * 3) // "*3" is for corresponding to multi bytes capacity
-
-	t := tables.New()
 
 	runes := []rune(str)
 
@@ -29,14 +25,14 @@ func H2z(str string) string {
 			nextChar := runes[i+1]
 
 			if nextChar == 'ﾞ' {
-				if zenkakuDakuten, ok := t.KANA_H2Z_DAKUTEN_MAP[char]; ok {
+				if zenkakuDakuten, ok := convTables.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					result.WriteRune(zenkakuDakuten)
 					i += 2   // Skip both the current character and the dakuten
 					continue // Continue to the next iteration
 				}
 			} else if nextChar == 'ﾟ' {
 
-				if zenkakuHandakuten, ok := t.KANA_H2Z_MARU_MAP[char]; ok {
+				if zenkakuHandakuten, ok := convTables.KANA_H2Z_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)
 					i += 2   // Skip both the current character and the handakuten
 					continue // Continue to the next iteration
@@ -45,11 +41,11 @@ func H2z(str string) string {
 		}
 
 		// If it's not a combined dakuten/handakuten case, perform standard conversions
-		if c, ok := t.ASCII_H2Z_CHARS_MAP[char]; ok {
+		if c, ok := convTables.ASCII_H2Z_CHARS_MAP[char]; ok {
 			result.WriteRune(c)
-		} else if c, ok := t.KANA_H2Z_CHARS_MAP[char]; ok {
+		} else if c, ok := convTables.KANA_H2Z_CHARS_MAP[char]; ok {
 			result.WriteRune(c)
-		} else if c, ok := t.DIGIT_H2Z_CHARS_MAP[char]; ok {
+		} else if c, ok := convTables.DIGIT_H2Z_CHARS_MAP[char]; ok {
 			result.WriteRune(c)
 		} else {
 			// Character is not convertible or a standalone dakuten/handakuten, etc.
