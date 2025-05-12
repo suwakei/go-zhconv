@@ -10,13 +10,13 @@ func H2z(str string) string {
 	if str == "" {
 		return ""
 	}
-	var result strings.Builder
-	result.Grow(len(str) * 3) // "*3" is for corresponding to multi bytes capacity
-
 	runes := []rune(str)
 
 	i := 0
 	runeLen := len(runes)
+
+	var result strings.Builder
+	result.Grow(runeLen * 3) // "* 3" is for corresponding to multi bytes capacity
 
 	for i < runeLen {
 		char := runes[i]
