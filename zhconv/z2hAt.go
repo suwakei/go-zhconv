@@ -32,6 +32,7 @@ func Z2hAt(str string, at ...int) string {
 
 	var outputRunes []rune = make([]rune, 0, runeLen) // Estimate capacity
 	var convertedRunes []rune
+
 	for i := 0; i < runeLen; i++ {
 		charToProcess := runes[i]
 		if _, shouldConvert := atSet[i]; shouldConvert {
@@ -39,17 +40,17 @@ func Z2hAt(str string, at ...int) string {
 			// Check for Katakana with dakuten/handakuten first for decomposition
 			// KANA_Z2H_DAKUTEN_MAP maps 'ガ' -> 'ｶ' (hankaku base)
 			if hankakuBase, ok := convTables.KANA_Z2H_DAKUTEN_MAP[charToProcess]; ok {
-				convertedRunes = append(convertedRunes, []rune{hankakuBase, 'ﾞ'}...) // 例: 'ガ' -> ['ｶ', 'ﾞ']
+				convertedRunes = append(convertedRunes, []rune{hankakuBase, 'ﾞ'}...) // e.g. 'ガ' -> ['ｶ', 'ﾞ']
 			} else if hankakuBase, ok := convTables.KANA_Z2H_MARU_MAP[charToProcess]; ok {
-				convertedRunes = append(convertedRunes, []rune{hankakuBase, 'ﾟ'}...) // 例: 'パ' -> ['ﾊ', 'ﾟ']
+				convertedRunes = append(convertedRunes, []rune{hankakuBase, 'ﾟ'}...) // e.g. 'パ' -> ['ﾊ', 'ﾟ']
 			}
 			
 			if c, ok := convTables.ASCII_Z2H_CHARS_MAP[charToProcess]; ok {
-				convertedRunes = append(convertedRunes, c) // 例: 'Ａ' -> ['A']
+				convertedRunes = append(convertedRunes, c) // e.g. 'Ａ' -> ['A']
 			} else if c, ok := convTables.KANA_Z2H_CHARS_MAP[charToProcess]; ok {
-				convertedRunes = append(convertedRunes, c) // 例: 'ア' -> ['ｱ']
+				convertedRunes = append(convertedRunes, c) // e.g. 'ア' -> ['ｱ']
 			} else if c, ok := convTables.DIGIT_Z2H_CHARS_MAP[charToProcess]; ok {
-				convertedRunes = append(convertedRunes, c) // 例: '１' -> ['1']
+				convertedRunes = append(convertedRunes, c) // e.g. '１' -> ['1']
 			}
 			if convertedRunes != nil {
 				outputRunes = append(outputRunes, convertedRunes...)
