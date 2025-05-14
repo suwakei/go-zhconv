@@ -30,7 +30,7 @@ func Z2hAt(str string, at ...int) string {
 		atSet[index] = struct{}{}
 	}
 
-	var outputRunes []rune = make([]rune, 0, runeLen) // Estimate capacity
+	var outputRunes = make([]rune, 0, runeLen) // Estimate capacity
 	var convertedRunes []rune
 
 	for i := 0; i < runeLen; i++ {
