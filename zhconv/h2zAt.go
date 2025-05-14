@@ -1,5 +1,8 @@
 package zhconv
 
+import (
+	"slices"
+)
 
 // H2zAt returns string that converted from half width to full width.
 // Conversion string can be selected with the second argument.
@@ -9,11 +12,16 @@ func H2zAt(str string, at ...int) string {
 	}
 	atLen := len(at)
 	if atLen == 0 {
-		return H2z(str)
+		return str
 	}
 
 	runes := []rune(str)
 	runeLen := len(runes)
+
+	if runeLen < slices.Max(at) {
+		return str
+	}
+
 	dakutenFlag := false
 
 	convMap := make(map[int]rune, atLen)
@@ -23,10 +31,10 @@ func H2zAt(str string, at ...int) string {
 		if a+1 < runeLen {
 			next := runes[a+1]
 
-			if next == 'ﾞ' {
+			if next == '゛' {
 				if zenkakuDakuten, ok := convTables.KANA_H2Z_DAKUTEN_MAP[target]; ok {
 					convMap[a] = zenkakuDakuten
-					convMap[a+1] = 'ﾞ'
+					convMap[a+1] = '゛'
 					dakutenFlag = true
 					continue
 				}
