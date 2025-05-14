@@ -1,5 +1,6 @@
 package tables
 
+
 type ConversionTables struct {
 	// ASCII_Z2H_CHARS is a Full Width ASCII characters map.
 	ASCII_Z2H_CHARS_MAP map[rune]rune
@@ -93,7 +94,7 @@ var (
 	}
 
 	KANA_H2Z_MARU_MAP = map[rune]rune{
-		'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+		'ﾊ': 'ハ', 'ﾋ': 'ﾋ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
 	}
 
 	KANA_Z2H_DAKUTEN_MAP = map[rune]rune{
