@@ -10,6 +10,7 @@ func H2zAt(str string, at ...int) string {
 	if str == "" {
 		return ""
 	}
+
 	atLen := len(at)
 	if atLen == 0 {
 		return str
