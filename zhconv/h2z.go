@@ -27,12 +27,14 @@ func H2z(str string) string {
 			if nextChar == 'ﾞ' {
 				if zenkakuDakuten, ok := convTables.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					result.WriteRune(zenkakuDakuten)
+					result.WriteRune('ﾞ')
 					i += 2   // Skip both the current character and the dakuten.
 					continue
 				}
 			} else if nextChar == 'ﾟ' {
 				if zenkakuHandakuten, ok := convTables.KANA_H2Z_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)
+					result.WriteRune('ﾟ')
 					i += 2
 					continue // Continue to the next iteration.
 				}
