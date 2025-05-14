@@ -16,7 +16,7 @@ func H2z(str string) string {
 	runeLen := len(runes)
 
 	var result strings.Builder
-	result.Grow(runeLen * 3) // "* 3" is for corresponding to multi bytes capacity
+	result.Grow(runeLen * 3) // "* 3" is for corresponding to multi bytes capacity.
 
 	for i < runeLen {
 		char := runes[i]
@@ -27,15 +27,14 @@ func H2z(str string) string {
 			if nextChar == 'ﾞ' {
 				if zenkakuDakuten, ok := convTables.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					result.WriteRune(zenkakuDakuten)
-					i += 2   // Skip both the current character and the dakuten
-					continue // Continue to the next iteration
+					i += 2   // Skip both the current character and the dakuten.
+					continue
 				}
 			} else if nextChar == 'ﾟ' {
-
 				if zenkakuHandakuten, ok := convTables.KANA_H2Z_MARU_MAP[char]; ok {
 					result.WriteRune(zenkakuHandakuten)
-					i += 2   // Skip both the current character and the handakuten
-					continue // Continue to the next iteration
+					i += 2
+					continue // Continue to the next iteration.
 				}
 			}
 		}
@@ -52,22 +51,75 @@ func H2z(str string) string {
 			result.WriteRune(char)
 		}
 
-		i++ // Move to the next character in the rune slice
+		i++
 	}
-	return result.String() // Return the built string
+	return result.String()
 }
 
 // H2zAt returns string that converted from half width to full width.
 // Conversion string can be selected with the second argument.
-// func H2zAt(str string, at ...int) string {
-// 	if str == "" {
-// 		return ""
-// 	}
+func H2zAt(str string, at ...int) string {
+	if str == "" {
+		return ""
+	}
+	atLen := len(at)
+	if atLen == 0 {
+		return H2z(str)
+	}
 
-// 	if len(at) == 0 {
-// 		return H2z(str)
-// 	}
+	runes := []rune(str)
+	runeLen := len(runes)
+	dakutenFlag := false
 
-// 	var result strings.Builder
-// 	result.Grow(len(str) * 3) //
-// }
+	convMap := make(map[int]rune, atLen)
+
+	for _, a := range at {
+		target := runes[a]
+		if a+1 < runeLen {
+			next := runes[a+1]
+
+			if next == 'ﾞ' {
+				if zenkakuDakuten, ok := convTables.KANA_H2Z_DAKUTEN_MAP[target]; ok {
+					convMap[a] = zenkakuDakuten
+					convMap[a+1] = 'ﾞ'
+					dakutenFlag = true
+					continue
+				}
+			} else if next == 'ﾟ' {
+				if zenkakuHandakuten, ok := convTables.KANA_H2Z_MARU_MAP[target]; ok {
+					convMap[a] = zenkakuHandakuten
+					convMap[a+1] = 'ﾟ'
+					dakutenFlag = true
+					continue
+				}
+			}
+		}
+		// If it's not a combined dakuten/handakuten case, perform standard conversions
+		if c, ok := convTables.ASCII_H2Z_CHARS_MAP[target]; ok {
+			convMap[a] = c
+		} else if c, ok := convTables.KANA_H2Z_CHARS_MAP[target]; ok {
+			convMap[a] = c
+		} else if c, ok := convTables.DIGIT_H2Z_CHARS_MAP[target]; ok {
+			convMap[a] = c
+		} else {
+			// Character is not convertible or a standalone dakuten/handakuten, etc.
+			convMap[a] = target
+		}
+	}
+	if !dakutenFlag {
+		for atkey, atval := range convMap {
+			runes[atkey] = atval
+	}
+	return string(runes)
+	}
+
+	resultRunes := make([]rune, 0, runeLen+len(convMap))
+	for i := 0; i < runeLen; i++ {
+		if val, ok := convMap[i]; ok {
+			resultRunes = append(resultRunes, val)
+		} else {
+			resultRunes = append(resultRunes, runes[i])
+		}
+		}
+	return string(resultRunes)
+}
