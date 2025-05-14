@@ -19,7 +19,8 @@ func H2zAt(str string, at ...int) string {
 	runes := []rune(str)
 	runeLen := len(runes)
 
-	if runeLen < slices.Max(at) {
+	// Validate indices
+	if atLen > 0 && (slices.Min(at) < 0 || slices.Max(at) >= runeLen) {
 		return str
 	}
 
