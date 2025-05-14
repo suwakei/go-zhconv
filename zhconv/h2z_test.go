@@ -60,22 +60,22 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Hankaku Katakana with Dakuten to Zenkaku",
 			input:    "ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ",
-			expected: "ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ",
+			expected: "カﾞキﾞクﾞケﾞコﾞサﾞシﾞスﾞセﾞソﾞタﾞチﾞツﾞテﾞトﾞハﾞヒﾞフﾞヘﾞホﾞウﾞ",
 		},
 		{
 			name:     "Hankaku Katakana with Handakuten to Zenkaku",
 			input:    "ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ",
-			expected: "パピプペポ",
+			expected: "ハﾟヒﾟフﾟヘﾟホﾟ",
 		},
 		{
 			name:     "Mixed Hankaku/Zenkaku/Other",
 			input:    "これはﾃｽﾄです｡123 ABC ｱｲｳ ｶﾞｷﾞｸﾞ ﾊﾟﾋﾟﾌﾟ!",
-			expected: "これはテストです。１２３　ＡＢＣ　アイウ　ガギグ　パピプ！",
+			expected: "これはテストです。１２３　ＡＢＣ　アイウ　カﾞキﾞクﾞ　ハﾟヒﾟフﾟ！",
 		},
 		{
 			name:     "Hankaku Space",
 			input:    " ｽﾍﾟｰｽ ", // 半角スペース
-			expected: "　スペース　",  // 全角スペース
+			expected: "　スヘﾟース　",  // 全角スペース
 		},
 		{
 			name:     "Dakuten/Handakuten cannot be applied",
@@ -85,12 +85,12 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Edge case: Dakuten at end",
 			input:    "ﾃｽﾄｶﾞ",
-			expected: "テストガ",
+			expected: "テストカﾞ",
 		},
 		{
 			name:     "Edge case: Handakuten at end",
 			input:    "ﾃｽﾄﾊﾟ",
-			expected: "テストパ",
+			expected: "テストハﾟ",
 		},
 		{
 			name:     "ASCII Edge Cases",
@@ -110,7 +110,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Long string with various conversions",
 			input:    "1ﾊﾞｲﾄ文字と2ﾊﾞｲﾄ文字が混在するﾃｷｽﾄ｡ ABC 123 ｶﾞｷﾞｸﾞﾊﾟﾋﾟﾌﾟ!?",
-			expected: "１バイト文字と２バイト文字が混在するテキスト。　ＡＢＣ　１２３　ガギグパピプ！？",
+			expected: "１ハﾞイト文字と２ハﾞイト文字が混在するテキスト。　ＡＢＣ　１２３　カﾞキﾞクﾞハﾟヒﾟフﾟ！？",
 		},
 	}
 
