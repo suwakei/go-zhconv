@@ -22,7 +22,7 @@ go get -u github.com/suwakei/go-zhconv/zhconv
 func H2z(string) string
 
 
-// H2zAt returns string that converted from half width to full width.
+// H2zAt returns string that converted from half-width to full-width.
 // Conversion string can be selected with the second argument.
 func H2zAt(string, ...int) string
 
@@ -31,6 +31,10 @@ func H2zAt(string, ...int) string
 // It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
 func Z2h(string) string
 
+
+// Z2hAt returns string that converted from full-width to half-width.
+// Conversion string can be selected with the second argument.
+func Z2hAt(string, ...int) string
 ```
 ## Usage
 ### convert from FullWidth to HalfWidth
