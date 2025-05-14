@@ -89,7 +89,7 @@ func TestZ2hAt(t *testing.T) {
 		{
 			name:     "Z2hAt: Complex case with multiple conversions including decomposition",
 			input:    "ＡＢＣ　１２３　テスト　ガギグ　パピプ",
-			at:       []int{0, 4, 11, 14, 18}, // A, 1, ト, ギ, ピ
+			at:       []int{0, 4, 10, 13, 17}, // A, 1, ト, ギ, ピ
 			expected: "AＢＣ　1２３　テスﾄ　ガｷﾞグ　パﾋﾟプ",
 		},
 	}
