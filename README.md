@@ -15,6 +15,23 @@ This repository is a library that supports character conversion in the Go langua
 go get -u github.com/suwakei/go-zhconv/zhconv
 ```
 
+## Features
+```go
+// H2z converts half-width characters (hankaku) in a string to full-width characters (zenkaku).
+// It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
+func H2z(string) string
+
+
+// H2zAt returns string that converted from half width to full width.
+// Conversion string can be selected with the second argument.
+func H2zAt(string, ...int) string
+
+
+// Z2h converts full-width characters (zenkaku) in a string to half-width characters (hankaku).
+// It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
+func Z2h(string) string
+
+```
 ## Usage
 ### convert from FullWidth to HalfWidth
 ```go
