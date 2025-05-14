@@ -9,7 +9,7 @@
 ## Overview
 This repository is a library that supports character conversion in the Go language. It performs mutual conversion between full-width and half-width characters and kana.
 
-zhconv written in other langage
+### zhconv written in other langage
 - TypeScript: https://github.com/suwakei/deno-zhconv
 
 
