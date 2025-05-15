@@ -5,6 +5,8 @@
 [![Lint Status](https://github.com/suwakei/go-zhconv/actions/workflows/lint.yml/badge.svg)](https://github.com/suwakei/go-zhconv/actions/workflows/lint.yml)
 [![Go Report Card](https://goreportcard.com/badge/github.com/suwakei/go-zhconv)](https://goreportcard.com/report/github.com/suwakei/go-zhconv)
 [![codecov](https://codecov.io/gh/suwakei/go-zhconv/graph/badge.svg?token=3XKGD5O102)](https://codecov.io/gh/suwakei/go-zhconv)
+[![Go](https://custom-icon-badges.herokuapp.com/badge/Go-00ADD8.svg?logo=Go&logoColor=white)]()
+
 
 ## Overview
 This repository is a library that supports character conversion in the Go language. It performs mutual conversion between full-width and half-width characters and kana.
