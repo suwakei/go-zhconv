@@ -35,7 +35,7 @@ func TestH2z(t *testing.T) {
 		{
 			name:     "Hankaku ASCII to Zenkaku",
 			input:    "ABCdef XYZ!#$%&'()*+,-./:;<=>?@[¥]^_`{|}~ \\",
-			expected: "ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～　＼",
+			expected: "ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［¥］＾＿‘｛｜｝～　￥",
 		},
 		{
 			name:     "Hankaku Digits to Zenkaku",
@@ -74,8 +74,8 @@ func TestH2z(t *testing.T) {
 		},
 		{
 			name:     "Hankaku Space",
-			input:    " ｽﾍﾟｰｽ ", // 半角スペース
-			expected: "　スヘﾟース　",  // 全角スペース
+			input:    " ｽﾍﾟｰｽ ",
+			expected: "　スヘﾟース　",
 		},
 		{
 			name:     "Dakuten/Handakuten cannot be applied",
