@@ -13,36 +13,35 @@ func Reverse(str string) string {
 	runes := []rune(str)
 	n := len(runes)
 	// Pre-allocate memory; actual length might differ due to multi-rune characters
-	// or single rune to multi-rune conversions (e.g., 'ガ' -> 'ｶ','ﾞ').
-	sb.Grow(n + n/2) // Estimate a bit more capacity
+	sb.Grow(n + n/2)
 
 	i := 0
 	for i < n {
 		char := runes[i]
 		converted := false
 
-		// --- 1. Try to convert from Full-width to Half-width ---
+		// Try to convert from Full-width to Half-width
 
 		// Full-width Katakana with Dakuten (e.g., 'ガ' -> 'ｶﾞ')
 		if halfBase, ok := convTables.KANA_Z2H_DAKUTEN_MAP[char]; ok {
-			sb.WriteRune(halfBase) // e.g., 'ｶ'
-			sb.WriteRune('ﾞ')     // Half-width Dakuten mark
+			sb.WriteRune(halfBase)
+			sb.WriteRune('ﾞ')
 			i++
 			converted = true
 		} else if halfBase, ok := convTables.KANA_Z2H_MARU_MAP[char]; ok {
 			sb.WriteRune(halfBase)
-			sb.WriteRune('ﾟ')     // Half-width Handakuten mark
+			sb.WriteRune('ﾟ')
 			i++
 			converted = true
-		} else if half, ok := convTables.ASCII_Z2H_CHARS_MAP[char]; ok { // Full-width ASCII (e.g., 'Ａ' -> 'A', '　' -> ' ')
+		} else if half, ok := convTables.ASCII_Z2H_CHARS_MAP[char]; ok {
 			sb.WriteRune(half)
 			i++
 			converted = true
-		} else if half, ok := convTables.DIGIT_Z2H_CHARS_MAP[char]; ok { // Full-width Digits (e.g., '１' -> '1')
+		} else if half, ok := convTables.DIGIT_Z2H_CHARS_MAP[char]; ok {
 			sb.WriteRune(half)
 			i++
 			converted = true
-		} else if half, ok := convTables.KANA_Z2H_CHARS_MAP[char]; ok { // Full-width Katakana (standard, e.g., 'ア' -> 'ｱ')
+		} else if half, ok := convTables.KANA_Z2H_CHARS_MAP[char]; ok {
 			sb.WriteRune(half)
 			i++
 			converted = true
@@ -52,12 +51,12 @@ func Reverse(str string) string {
 			continue
 		}
 
-		// --- 2. Try to convert from Half-width to Full-width (if not converted above) ---
+		// Try to convert from Half-width to Full-width (if not converted above)
 
 		// Check for Half-width Katakana with Dakuten/Handakuten (2 runes sequence)
 		if i+1 < n {
 			nextChar := runes[i+1]
-			if nextChar == 'ﾞ' { // Half-width Dakuten mark
+			if nextChar == 'ﾞ' {
 				if zenkakuBase, ok := convTables.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					sb.WriteRune(zenkakuBase)
 					sb.WriteRune('ﾞ')
