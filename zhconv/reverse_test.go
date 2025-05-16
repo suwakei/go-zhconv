@@ -4,7 +4,6 @@ import (
 	"testing"
 )
 
-// test/widthとのベンチマークも忘れずに書く
 
 func TestReverse(t *testing.T) {
 	testCases := []struct {
