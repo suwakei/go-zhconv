@@ -56,14 +56,15 @@ func Reverse(str string) string {
 		// Check for Half-width Katakana with Dakuten/Handakuten (2 runes sequence)
 		if i+1 < n {
 			nextChar := runes[i+1]
-			if nextChar == 'ﾞ' {
+			switch nextChar {
+			case 'ﾞ':
 				if zenkakuBase, ok := convTables.KANA_H2Z_DAKUTEN_MAP[char]; ok {
 					sb.WriteRune(zenkakuBase)
 					sb.WriteRune('ﾞ')
 					i += 2
 					converted = true
 				}
-			} else if nextChar == 'ﾟ' {
+			case 'ﾟ':
 				if zenkakuBase, ok := convTables.KANA_H2Z_MARU_MAP[char]; ok {
 					sb.WriteRune(zenkakuBase)
 					sb.WriteRune('ﾟ')
