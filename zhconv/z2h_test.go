@@ -35,7 +35,7 @@ func TestZ2h(t *testing.T) {
 		{
 			name:     "Zenkaku ASCII to Hankaku",
 			input:    "ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～",
-			expected: "ABCdef XYZ!#$%&'()*+,-./:;<=>?@[¥]^_`{|}~",
+			expected: "ABCdef XYZ!#$%&'()*+,-./:;<=>?@[\\]^_`{|}~",
 		},
 		{
 			name:     "Zenkaku Digits to Hankaku",
