@@ -10,19 +10,19 @@
 
 <table>
 	<thead>
-    	<tr>
-      		<th style="text-align:center">English</th>
-      		<th style="text-align:center"><a href="README_ja.md">日本語</a></th>
-    	</tr>
-  	</thead>
+		<tr>
+			<th style="text-align:center"><a href="README.md">English</a></th>
+			<th style="text-align:center">日本語</th>
+		</tr>
+	</thead>
 </table>
 
 
 
-## Overview
-This repository is a library that supports character conversion in the Go language. It performs mutual conversion between full-width and half-width characters and kana.
+## 概要
+このリポジトリはGo言語の文字変換をサポートするライブラリです。全角、半角、かなの相互変換を行います。
 
-### zhconv written in other langage
+### 多言語でのzhconvライブラリ
 - TypeScript: https://github.com/suwakei/deno-zhconv
 
 
@@ -32,39 +32,39 @@ This repository is a library that supports character conversion in the Go langua
 go get -u github.com/suwakei/go-zhconv/zhconv
 ```
 
-## Features
+## 機能
 ```go
-// H2z converts half-width characters (hankaku) in a string to full-width characters (zenkaku).
-// It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
+// H2z は、文字列中の半角文字を全角文字に変換します。
+// ASCII, カタカナ, 数字, 濁点/半濁点付きカタカナを扱います。
 func H2z(string) string
 
 
-// H2zAt returns string that converted from half-width to full-width.
-// Conversion string can be selected with the second argument.
+// H2zAtは半角から全角に変換した文字列を返します。
+// 変換文字列は第2引数で選択できます。
 func H2zAt(string, ...int) string
 
 
-// Z2h converts full-width characters (zenkaku) in a string to half-width characters (hankaku).
-// It handles ASCII, Katakana, digits, and Katakana with dakuten/handakuten.
+// Z2h は、文字列中の全角文字を半角文字に変換します。
+// ASCII, カタカナ, 数字, 濁点/半濁点付きカタカナを扱います。
 func Z2h(string) string
 
 
-// Z2hAt returns string that converted from full-width to half-width.
-// Conversion string can be selected with the second argument.
+// Z2hAtは全角を半角に変換した文字列を返します。
+// 変換文字列は第2引数で選択できます。
 func Z2hAt(string, ...int) string
 
 
-// Reverse returns a string that reverses half-width and full-width characters in a string
+// Reverse関数は文字列中の半角と全角を反転させた文字列を返します
 func Reverse(string) string
 ```
-## Usage
-### Conversion from half-Width to full-Width characters.
+## 使い方
+### 半角文字から全角文字の変換
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/suwakei/go-zhconv/zhconv"
+	"fmt"
+	"github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
@@ -116,56 +116,56 @@ func main() {
 ```
 
 
-### Conversion from full-width to half-width characters.
+### 全角文字から半角文字の変換。
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/suwakei/go-zhconv/zhconv"
+	"fmt"
+	"github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
-    result := zhconv.Z2h("Ｈｅｌｌｏ， ｗｏｒｌｄ！")
-    fmt.Println(result) // "Hello, world!"
+	result := zhconv.Z2h("Ｈｅｌｌｏ， ｗｏｒｌｄ！")
+	fmt.Println(result) // "Hello, world!"
 
-    result = zhconv.Z2h("ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～")
-    fmt.Println(result) // ABCdef XYZ!#$%&'()*+,-./:;<=>?@[¥]^_`{|}~
+	result = zhconv.Z2h("ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～")
+	fmt.Println(result) // ABCdef XYZ!#$%&'()*+,-./:;<=>?@[¥]^_`{|}~
 
-    result = zhconv.Z2h("０１２３４５６７８９")
-    fmt.Println(result) // 0123456789
+	result = zhconv.Z2h("０１２３４５６７８９")
+	fmt.Println(result) // 0123456789
 
-    result = zhconv.Z2h("アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン")
-    fmt.Println(result) // ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ
+	result = zhconv.Z2h("アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン")
+	fmt.Println(result) // ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜｦﾝ
 
 	result = zhconv.Z2h("ァィゥェォッャュョ")
-    fmt.Println(result) // ｧｨｩｪｫｯｬｭｮ ヮ is not converted because there is no corresponding character for half-width.
+	fmt.Println(result) // ｧｨｩｪｫｯｬｭｮ ヮ is not converted because there is no corresponding character for half-width.
 
-    result = zhconv.Z2h("。、・ー「」")
-    fmt.Println(result) // ｡､･ｰ｢｣
+	result = zhconv.Z2h("。、・ー「」")
+	fmt.Println(result) // ｡､･ｰ｢｣
 
-    result = zhconv.Z2h("ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ")
-    fmt.Println(result) // ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ
+	result = zhconv.Z2h("ガギグゲゴザジズゼゾダヂヅデドバビブベボヴ")
+	fmt.Println(result) // ｶﾞｷﾞｸﾞｹﾞｺﾞｻﾞｼﾞｽﾞｾﾞｿﾞﾀﾞﾁﾞﾂﾞﾃﾞﾄﾞﾊﾞﾋﾞﾌﾞﾍﾞﾎﾞｳﾞ
 
-    result = zhconv.Z2h("パピプペポ")
-    fmt.Println(result) // ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ
+	result = zhconv.Z2h("パピプペポ")
+	fmt.Println(result) // ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ
 
-    result = zhconv.Z2h("　スペース　") // convert from Full width space to half width space
-    fmt.Println(result) //  ｽﾍﾟｰｽ 
+	result = zhconv.Z2h("　スペース　") // convert from Full width space to half width space
+	fmt.Println(result) //  ｽﾍﾟｰｽ 
 
-    result = zhconv.Z2h("①②③㈱㈲") // It is assumed that environment dependent characters will not be converted.
-    fmt.Println(result) // ①②③㈱㈲
+	result = zhconv.Z2h("①②③㈱㈲") // It is assumed that environment dependent characters will not be converted.
+	fmt.Println(result) // ①②③㈱㈲
 }
 ```
 
 
-### Partial conversion from half-width to full-width characters
+### 部分的な半角文字から全角文字の変換
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/suwakei/go-zhconv/zhconv"
+	"fmt"
+	"github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
@@ -193,59 +193,59 @@ func main() {
 ```
 
 
-### Partial conversion from full-width to half-width characters
+### 部分的な全角文字から半角文字の変換
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/suwakei/go-zhconv/zhconv"
+	"fmt"
+	"github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
-    result := zhconv.Z2hAt("Ｈｅｌｌｏ， ｗｏｒｌｄ！", 0, 7)
-    fmt.Println(result) // Hｅｌｌｏ， wｏｒｌｄ！.
+	result := zhconv.Z2hAt("Ｈｅｌｌｏ， ｗｏｒｌｄ！", 0, 7)
+	fmt.Println(result) // Hｅｌｌｏ， wｏｒｌｄ！.
 
-    result = zhconv.Z2hAt("ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～", 3, 17)
-    fmt.Println(result) // ＡＢＣdｅｆ　ＸＹＺ！＃＄％＆’（)＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～.
+	result = zhconv.Z2hAt("ＡＢＣｄｅｆ　ＸＹＺ！＃＄％＆’（）＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～", 3, 17)
+	fmt.Println(result) // ＡＢＣdｅｆ　ＸＹＺ！＃＄％＆’（)＊＋，－．／：；＜＝＞？＠［￥］＾＿‘｛｜｝～.
 
-    result = zhconv.Z2hAt("０１２３４５６７８９", 0, 5)
-    fmt.Println(result) // 0１２３４5６７８９.
+	result = zhconv.Z2hAt("０１２３４５６７８９", 0, 5)
+	fmt.Println(result) // 0１２３４5６７８９.
 
-    result = zhconv.Z2hAt("アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン", 0, 6, 9, 10)
-    fmt.Println(result) // ｱイウエオカｷクケｺｻシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン.
+	result = zhconv.Z2hAt("アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン", 0, 6, 9, 10)
+	fmt.Println(result) // ｱイウエオカｷクケｺｻシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン.
 
-    result = zhconv.Z2hAt("ァィゥェォッャュョ", 4)
-    fmt.Println(result) // ァィゥェｫッャュョ.
+	result = zhconv.Z2hAt("ァィゥェォッャュョ", 4)
+	fmt.Println(result) // ァィゥェｫッャュョ.
 }
 ```
 
-### Invert half-width and full-width characters
+### 半角文字と全角文字の相互変換
 ```go
 package main
 
 import (
-    "fmt"
-    "github.com/suwakei/go-zhconv/zhconv"
+	"fmt"
+	"github.com/suwakei/go-zhconv/zhconv"
 )
 
 func main() {
-    result := zhconv.Reverse("abc xyz!")
-    fmt.Println(result) // ａｂｃ　ｘｙｚ！
+	result := zhconv.Reverse("abc xyz!")
+	fmt.Println(result) // ａｂｃ　ｘｙｚ！
 
-    result = zhconv.Reverse("０１２３４５")
-    fmt.Println(result) // 012345
+	result = zhconv.Reverse("０１２３４５")
+	fmt.Println(result) // 012345
 
-    result = zhconv.Reverse("Ｈｅｌｌｏ　Ｗｏｒｌｄ！　１２３　アイウガパ")
-    fmt.Println(result) // Hello World! 123 ｱｲｳｶﾞﾊﾟ
+	result = zhconv.Reverse("Ｈｅｌｌｏ　Ｗｏｒｌｄ！　１２３　アイウガパ")
+	fmt.Println(result) // Hello World! 123 ｱｲｳｶﾞﾊﾟ
 
-    result = zhconv.Reverse("ＡbcＤＥＦｇｈ　1２３ＸＹｚ　アｲウｴオ　カｷﾞクｹﾞコ　サｼﾞスｾﾞソ　タﾁヅﾃド")
-    fmt.Println(result) //AｂｃDEFgh １23XYz ｱイｳエｵ ｶキﾞｸケﾞｺ ｻシﾞｽセﾞｿ ﾀチﾂﾞテﾄﾞ
+	result = zhconv.Reverse("ＡbcＤＥＦｇｈ　1２３ＸＹｚ　アｲウｴオ　カｷﾞクｹﾞコ　サｼﾞスｾﾞソ　タﾁヅﾃド")
+	fmt.Println(result) //AｂｃDEFgh １23XYz ｱイｳエｵ ｶキﾞｸケﾞｺ ｻシﾞｽセﾞｿ ﾀチﾂﾞテﾄﾞ
 
-    result = zhconv.Reverse("１ｓｔ「ＰＲＩＣＥ」ｉｓ　￥１，０００－　（ＴＡＸ　ＩＮ）　ｶﾞﾝﾊﾞﾚ！")
-    fmt.Println(result) // 1st｢PRICE｣is \\1,000- (TAX IN) カﾞンハﾞレ!
+	result = zhconv.Reverse("１ｓｔ「ＰＲＩＣＥ」ｉｓ　￥１，０００－　（ＴＡＸ　ＩＮ）　ｶﾞﾝﾊﾞﾚ！")
+	fmt.Println(result) // 1st｢PRICE｣is \\1,000- (TAX IN) カﾞンハﾞレ!
 
-    result = zhconv.Reverse("テストｶﾞ")
-    fmt.Println(result) // ﾃｽﾄカﾞ
+	result = zhconv.Reverse("テストｶﾞ")
+	fmt.Println(result) // ﾃｽﾄカﾞ
 }
 ```
