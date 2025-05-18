@@ -22,7 +22,7 @@
 ## 概要
 このリポジトリはGo言語の文字変換をサポートするライブラリです。全角、半角、かなの相互変換を行います。
 
-### 多言語でのzhconvライブラリ
+### 他言語でのzhconvライブラリ
 - TypeScript: https://github.com/suwakei/deno-zhconv
 
 
