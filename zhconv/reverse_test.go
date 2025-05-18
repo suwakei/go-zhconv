@@ -54,7 +54,7 @@ func TestReverse(t *testing.T) {
 		{
 			name:     "Half-width Katakana (Dakuten) to Full-width",
 			input:    "ｻﾞｼﾞｽﾞｾﾞｿﾞ",
-			expected: "サﾞシﾞスﾞセﾞソﾞ", // H2zの挙動に合わせる
+			expected: "サﾞシﾞスﾞセﾞソﾞ",
 		},
 		{
 			name:     "Full-width Katakana (Handakuten) to Half-width",
@@ -64,7 +64,7 @@ func TestReverse(t *testing.T) {
 		{
 			name:     "Half-width Katakana (Handakuten) to Full-width",
 			input:    "ﾊﾟﾋﾟﾌﾟﾍﾟﾎﾟ",
-			expected: "ハﾟヒﾟフﾟヘﾟホﾟ", // H2zの挙動に合わせる
+			expected: "ハﾟヒﾟフﾟヘﾟホﾟ",
 		},
 		{
 			name:     "Mixed Full-width to Half-width",
