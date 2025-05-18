@@ -26,7 +26,7 @@
 - TypeScript: https://github.com/suwakei/deno-zhconv
 
 
-## Installation
+## インストール方法
 
 ```sh
 go get -u github.com/suwakei/go-zhconv/zhconv
