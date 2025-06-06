@@ -26,7 +26,7 @@ This repository is a library that supports character conversion in the Go langua
 - TypeScript: https://github.com/suwakei/deno-zhconv
 
 
-## Installation
+## Installing
 
 ```sh
 go get -u github.com/suwakei/go-zhconv/zhconv
